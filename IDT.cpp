@@ -44,7 +44,7 @@ void InitializeIDT() {
 	PrintStrings(2, HexToString(_idt_[1].offset_2), "\n\r");
 	PrintStrings(2, HexToString(_idt_[1].offset_3), "\n\r");
 	PrintStrings(2, HexToString(_idt_[1].zero), "\n\r");
-	idtDescriptor.Base = (uint_64)_idt_ + 10;
+	idtDescriptor.Base = (uint_64)_idt_;
 	
 	PrintStrings(3, "IDT Size: ", HexToString(idtDescriptor.Limit), "\n\r");
 	PrintStrings(3, "IDT Base: ", HexToString(idtDescriptor.Base), "\n\r");
