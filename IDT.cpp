@@ -6,7 +6,7 @@
 struct IDTDescriptor {
 	uint_16 Limit;
 	uint_64 Base;	
-};
+} __attribute__((packed));
 
 struct IDT_64 {
 	uint_16 offset_1;
@@ -18,10 +18,10 @@ struct IDT_64 {
 	uint_32 zero;
 }__attribute__((packed));
 
-extern IDT_64 _idt_[256];
+IDT_64 _idt_[256];
 extern uint_64 irq0;
 extern "C" void* InitIDT();
-extern IDTDescriptor idtDescriptor;
+IDTDescriptor idtDescriptor = { sizeof(_idt_)-1, (uint_64)&_idt_};
 void InitializeIDT() {
 	PrintStrings(3, "Initializing IDT at ", HexToString(&_idt_), "\n\r");
 	PrintStrings(3, "irq0 is at ", HexToString(&irq0), "\n\r");
@@ -44,7 +44,6 @@ void InitializeIDT() {
 	PrintStrings(2, HexToString(_idt_[1].offset_2), "\n\r");
 	PrintStrings(2, HexToString(_idt_[1].offset_3), "\n\r");
 	PrintStrings(2, HexToString(_idt_[1].zero), "\n\r");
-	idtDescriptor.Base = (uint_64)_idt_;
 	
 	PrintStrings(3, "IDT Size: ", HexToString(idtDescriptor.Limit), "\n\r");
 	PrintStrings(3, "IDT Base: ", HexToString(idtDescriptor.Base), "\n\r");
