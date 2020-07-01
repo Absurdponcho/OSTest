@@ -28,14 +28,8 @@ irq0:
 	iretq
 	GLOBAL irq0
 
-	[extern _idt_]
-idtDescriptor:
-	dw 4095
-	dq 0
-	GLOBAL idtDescriptor
-
 InitIDT:
-
+    [extern idtDescriptor]
 	lidt[idtDescriptor]
 	sti
 	

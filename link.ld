@@ -35,7 +35,7 @@ SECTIONS
 	.rodata : ALIGN(0x1000)
 	{
 	_rodata_section = .;
-	*(.rodata)
+	*(.rodata*)
 	_rodata_section_end = .;
 	}
 	
@@ -45,10 +45,5 @@ SECTIONS
 	*(COMMON)
 	*(.bss)
 	_bss_section_end = .;
-	}
-
-	.idt BLOCK(0x1000) : ALIGN(0x1000)
-	{
-	_idt_ = .;
 	}
 }
